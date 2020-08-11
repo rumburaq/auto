@@ -2,11 +2,11 @@
 //https://github.com/adafruit/Adafruit-Motor-Shield-library
 //https://github.com/Martinsos/arduino-lib-hc-sr04
 //piny
-const int trigPin = A0; 
-//const int trigPinR = X;
+const int trigPin = 9; 
+const int trigPinR = 5;
 //const int trigPinL = X;
-const int echoPin = A2;
-//const int echoPinR = Y;
+const int echoPin = 10;
+const int echoPinR = 2;
 //const int echoPinL = Y;
 
 //senzor
@@ -23,12 +23,15 @@ void setup() {
   // put your setup code here, to run once:
   pinMode(trigPin, OUTPUT);
   pinMode(echoPin, INPUT);
-  Serial.begin(9600);
+  pinMode(trigPinR, OUTPUT);
+  pinMode(echoPinR, INPUT);
+  Serial.begin(115200);
 
 }
 
 void loop() {
   sensorsRead();// put your main code here, to run repeatedly:
+  delay(1000);
 
 }
 
@@ -46,16 +49,19 @@ void sensorsRead(){
   vz = duration * 0.034 / 2; //
   Serial.println(vz);
   //right sensor 
-  /*
+  
   digitalWrite(trigPinR, LOW);
   delayMicroseconds(2);
   
   digitalWrite(trigPinR, HIGH);
   delayMicroseconds(10);
-  digitalWrite(trigPinR, LOW);
+  digitalWrite(trigPin, LOW);
   durationR = pulseIn(echoPinR, HIGH);
-  vzR = duration * 0.034 / 2; //
-  //left sensor
+  vzR = durationR * 0.034 / 2; //
+ // Serial.println("senzor 2: ");
+  Serial.println(vzR);
+  //left sensor 
+  /*
   digitalWrite(trigPinL, LOW);
   delayMicroseconds(2);
   
