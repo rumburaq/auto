@@ -16,6 +16,9 @@ const int echoPin = 2;
 const int trigPinL = 11;       // levej senzor
 const int echoPinL = 13;
 
+const int trigPinR = A4;       // pravej senzor
+const int echoPinR = A5;
+
 
 
 //senzor
@@ -32,8 +35,10 @@ void setup() {
   // put your setup code here, to run once:
   pinMode(trigPin, OUTPUT);
   pinMode(echoPin, INPUT);
-  //pinMode(trigPinR, OUTPUT);
-  //pinMode(echoPinR, INPUT);
+  
+  pinMode(trigPinR, OUTPUT);
+  pinMode(echoPinR, INPUT);
+  
   pinMode(trigPinL, OUTPUT);
   pinMode(echoPinL, INPUT);
   Serial.begin(115200);
@@ -59,9 +64,10 @@ void sensorsRead(){
   digitalWrite(trigPin, LOW);
   duration = pulseIn(echoPin, HIGH); // vz = vzdálenost
   vz = duration * 0.034 / 2; //
+  Serial.println("senzor 1: ");
   Serial.println(vz);
   //right sensor 
-  /*
+  
   digitalWrite(trigPinR, LOW);
   delayMicroseconds(2);
   
@@ -70,10 +76,10 @@ void sensorsRead(){
   digitalWrite(trigPin, LOW);
   durationR = pulseIn(echoPinR, HIGH);
   vzR = durationR * 0.034 / 2; //
- // Serial.println("senzor 2: ");
+  Serial.println("senzor 2: ");
   Serial.println(vzR);
   //left sensor 
-  */
+  
   digitalWrite(trigPinL, LOW);
   delayMicroseconds(2);
   
@@ -82,7 +88,7 @@ void sensorsRead(){
   digitalWrite(trigPinL, LOW);
   durationL = pulseIn(echoPinL, HIGH);
   vzL = durationL * 0.034 / 2; //
-  Serial.println("hjfksadhfk");
+  Serial.println("senzor 3: ");
   Serial.println(vzL);
-
+  
 }
