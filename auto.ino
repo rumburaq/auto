@@ -2,12 +2,21 @@
 //https://github.com/adafruit/Adafruit-Motor-Shield-library
 //https://github.com/Martinsos/arduino-lib-hc-sr04
 //piny
-const int trigPin = 9; 
-const int trigPinR = 5;
-//const int trigPinL = X;
-const int echoPin = 10;
-const int echoPinR = 2;
-//const int echoPinL = Y;
+//const int trigPin = 5; //modra
+//const int trigPinR = 5;
+//const int trigPinL = 13;
+//const int echoPin = 2;
+//const int echoPinR = 2;
+//const int echoPinL = 11;
+
+
+const int trigPin = 5; //modra // prostredni senzor
+const int echoPin = 2;
+
+const int trigPinL = 11;       // levej senzor
+const int echoPinL = 13;
+
+
 
 //senzor
 int vz;
@@ -23,21 +32,24 @@ void setup() {
   // put your setup code here, to run once:
   pinMode(trigPin, OUTPUT);
   pinMode(echoPin, INPUT);
-  pinMode(trigPinR, OUTPUT);
-  pinMode(echoPinR, INPUT);
+  //pinMode(trigPinR, OUTPUT);
+  //pinMode(echoPinR, INPUT);
+  pinMode(trigPinL, OUTPUT);
+  pinMode(echoPinL, INPUT);
   Serial.begin(115200);
 
 }
 
 void loop() {
   sensorsRead();// put your main code here, to run repeatedly:
-  delay(1000);
+  //delay(1000);
 
 }
 
 
 void sensorsRead(){
   //front sensor
+  
   //clears trigPin
   digitalWrite(trigPin, LOW);
   delayMicroseconds(2);
@@ -49,7 +61,7 @@ void sensorsRead(){
   vz = duration * 0.034 / 2; //
   Serial.println(vz);
   //right sensor 
-  
+  /*
   digitalWrite(trigPinR, LOW);
   delayMicroseconds(2);
   
@@ -61,7 +73,7 @@ void sensorsRead(){
  // Serial.println("senzor 2: ");
   Serial.println(vzR);
   //left sensor 
-  /*
+  */
   digitalWrite(trigPinL, LOW);
   delayMicroseconds(2);
   
@@ -69,6 +81,8 @@ void sensorsRead(){
   delayMicroseconds(10);
   digitalWrite(trigPinL, LOW);
   durationL = pulseIn(echoPinL, HIGH);
-  vzL = duration * 0.034 / 2; //
-  */
+  vzL = durationL * 0.034 / 2; //
+  Serial.println("hjfksadhfk");
+  Serial.println(vzL);
+
 }
