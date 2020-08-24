@@ -11,21 +11,21 @@ void setup() {
   Serial.println("Motor test!");
 
   // turn on motor
-  motor.setSpeed(110);
+  motor.setSpeed(120);
  
   motor.run(RELEASE);
 }
 
 void loop() {
   
-  Serial.print("L"); // prvni fungue j e 2. ne""???????
-  motor.setSpeed(100);
+  Serial.print("L"); // 130 na oba je nice 
+  motor.setSpeed(135);
   motor.run(FORWARD);
   delay(500);
   motor.run(RELEASE);
   delay(1000);
   Serial.print("Prava");
-  motor.setSpeed(100);
+  motor.setSpeed(135);
   motor.run(BACKWARD);
   delay(500);
   motor.run(RELEASE);
