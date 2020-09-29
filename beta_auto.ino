@@ -1,4 +1,3 @@
-//zatím nefunkcni ani nejde zkompilovat ale je to zakladni kostra 
 #include <AFMotor.h>
 #define RELE_PIN_1 6
 #define RELE_PIN_2 9
@@ -80,19 +79,20 @@ void loop() {
     go();
   }
 }
+
 void sensorsRead(){ // mozna rozdelit funkci na 2 - jen predni senzory a je zadni senzor
   // mereni 30-40 tisicin sekundy
   //front sensor
   
-  //clears trigPin
+  //"vycisti" trigPin
   digitalWrite(trigPin, LOW);
   delayMicroseconds(2);
-  
+  //
   digitalWrite(trigPin, HIGH);
   delayMicroseconds(10);
   digitalWrite(trigPin, LOW);
-  duration = pulseIn(echoPin, HIGH); // vz = vzdálenost
-  vz = duration * 0.034 / 2; //
+  duration = pulseIn(echoPin, HIGH); // pulseIn zmeri cas v mikrosedundach jak dlouho zvukova vlna letela |//!? MOZNA PREJMENOVAT DURATION NA TIME
+  vz = duration * 0.034 / 2; // vz = vzdálenost | s = t * v | s = duration * 0.043cm/µs |
   Serial.println("stred 1: ");
   Serial.println(vz);
   //right sensor 
@@ -120,6 +120,24 @@ void sensorsRead(){ // mozna rozdelit funkci na 2 - jen predni senzory a je zadn
   Serial.println("levej 3: ");
   Serial.println(vzL);
 
+  delay(100); // 10 mereni /s (za sekundu)
+
+  //back sensor 
+  
+  /*digitalWrite(trigPinZ, LOW);
+  delayMicroseconds(2);
+  
+  digitalWrite(trigPinZ, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(trigPinZ, LOW);
+  durationZ = pulseIn(echoPinZ, HIGH);
+  vzZ = durationZ * 0.034 / 2; //
+  Serial.println("senzor Zadni____: ");
+  Serial.println(vzZ);*/
+  
+ }
+
+  void backSensor(){
   //back sensor 
   
   digitalWrite(trigPinZ, LOW);
@@ -132,8 +150,9 @@ void sensorsRead(){ // mozna rozdelit funkci na 2 - jen predni senzory a je zadn
   vzZ = durationZ * 0.034 / 2; //
   Serial.println("senzor Zadni____: ");
   Serial.println(vzZ);
+  delay(100); // 10 mereni /s (za sekundu)
   
-}
+  }
 
   void go(){
   digitalWrite(RELE_PIN_1, HIGH);              
@@ -146,7 +165,7 @@ void sensorsRead(){ // mozna rozdelit funkci na 2 - jen predni senzory a je zadn
   }
 
   void left(){
-    motor.setSpeed(120);
+    motor.setSpeed(120); //nemelo by se tady nechat
     motor.run(BACKWARD);
   }
 
@@ -163,7 +182,7 @@ void sensorsRead(){ // mozna rozdelit funkci na 2 - jen predni senzory a je zadn
     int leftcount = 0;
     pause();
     //delay(2000) //!!??? je horni hranice aby nerozhodila senzory?
-    while (vzZ > minvzZ){
+    while (vzZ > minvzZ){ //!! NEKDE POUZIT BACKSENSOR !!
       if (vzZ > minvzZ && leftcount == 0 ){
         left();
         //delay(50) ?
@@ -172,7 +191,7 @@ void sensorsRead(){ // mozna rozdelit funkci na 2 - jen predni senzory a je zadn
       }
       else if (vzZ > minvzZ && leftcount == 1){ //vyresit lag senzoru otestovat funkci na zpatecku (v hlave) nastenka napsat funkci fullright a naopak
         //backward();
-        morotr.run(RELEASE);
+        motor.run(RELEASE);
       }
       else if (vzZ > minVZ && leftcount == 1){
         pause();
@@ -182,4 +201,16 @@ void sensorsRead(){ // mozna rozdelit funkci na 2 - jen predni senzory a je zadn
       
     }
     
+  }
+
+  void fullright() {
+    motor.run(FORWARD);
+    delay(50); //mozna vic mozna min
+    motor.run(RELEASE);
+  }
+
+  void fullleft() {
+    motor.run(BACKWARD); 
+    delay(50); //mozna vic mozna min
+    motor.run(RELEASE);
   }
