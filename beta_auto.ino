@@ -1,3 +1,5 @@
+//ta mrdka moc nefunguje ani to nejde zkompilovat nakej error /302 in program ??
+
 #include <AFMotor.h>
 #define RELE_PIN_1 6
 #define RELE_PIN_2 9
