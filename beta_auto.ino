@@ -1,4 +1,5 @@
-//ta mrdka moc nefunguje ani to nejde zkompilovat nakej error /302 in program ??
+//ta mrdka moc nefunguje ani to nejde zkompilovat nakej error /302 in program ?? ale uz asi vim jak na to a 
+//spravim to hned zejtra lol 
 
 #include <AFMotor.h>
 #define RELE_PIN_1 6
@@ -57,15 +58,15 @@ void setup() {
 }
 
 void loop() {
-  sensorsRead();
+  sensorsRead(); //nacti hodnoty ze senzorů
   if (vz < minvz) || (vzR < minvzS) || (vzL < minvzS) {
   
-  if (vz < minvz) && (vzR < minvzS) && (vzL < minvzS) {
+  if (vz < minvz) && (vzR < minvzS) && (vzL < minvzS) { //pokud jsi blízko prekazce zastav
     pause();
     //otocka();
   }
 
-  else if (vzR < vzL){
+  else if (vzR < vzL){ //kdyz je na levo víc místa jed do leva
     left();
   }
 
@@ -82,7 +83,7 @@ void loop() {
   }
 }
 
-void sensorsRead(){ // mozna rozdelit funkci na 2 - jen predni senzory a je zadni senzor
+void sensorsRead(){ // nesmi to bejt void OPRAVIT na argumenty funkce
   // mereni 30-40 tisicin sekundy
   //front sensor
   
@@ -122,7 +123,7 @@ void sensorsRead(){ // mozna rozdelit funkci na 2 - jen predni senzory a je zadn
   Serial.println("levej 3: ");
   Serial.println(vzL);
 
-  delay(100); // 10 mereni /s (za sekundu)
+  delay(100); // 10 mereni /s (za sekundu) ! zmennit na pouzití munkce milis();
 
   //back sensor 
   
@@ -139,7 +140,7 @@ void sensorsRead(){ // mozna rozdelit funkci na 2 - jen predni senzory a je zadn
   
  }
 
-  void backSensor(){
+  void backSensor(){ // ne na void
   //back sensor 
   
   digitalWrite(trigPinZ, LOW);
@@ -180,7 +181,7 @@ void sensorsRead(){ // mozna rozdelit funkci na 2 - jen predni senzory a je zadn
     digitalWrite(RELE_PIN_2, LOW); //} 0 0
   }
 
-  void otocka() {
+  void otocka() { // to je mrdka to radsi ani nikdo nectete ani to zatim nefunguje
     int leftcount = 0;
     pause();
     //delay(2000) //!!??? je horni hranice aby nerozhodila senzory?
@@ -205,7 +206,7 @@ void sensorsRead(){ // mozna rozdelit funkci na 2 - jen predni senzory a je zadn
     
   }
 
-  void fullright() {
+  void fullright() { //mozna k nicemu
     motor.run(FORWARD);
     delay(50); //mozna vic mozna min
     motor.run(RELEASE);
