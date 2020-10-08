@@ -1,6 +1,3 @@
-//ta mrdka moc nefunguje ani to nejde zkompilovat nakej error /302 in program ?? ale uz asi vim jak na to a 
-//spravim to hned zejtra lol 
-
 #include <AFMotor.h>
 #define RELE_PIN_1 6
 #define RELE_PIN_2 9
@@ -83,7 +80,8 @@ void loop() {
   }
 }
 
-void sensorsRead(){ // nesmi to bejt void OPRAVIT na argumenty funkce
+//tahle funkce zmeri vzdálenost u 3 prednich senzoru v cm
+void sensorsRead(){ // nesmi to bejt void OPRAVIT? 
   // mereni 30-40 tisicin sekundy
   //front sensor
   
@@ -94,7 +92,7 @@ void sensorsRead(){ // nesmi to bejt void OPRAVIT na argumenty funkce
   digitalWrite(trigPin, HIGH);
   delayMicroseconds(10);
   digitalWrite(trigPin, LOW);
-  duration = pulseIn(echoPin, HIGH); // pulseIn zmeri cas v mikrosedundach jak dlouho zvukova vlna letela |//!? MOZNA PREJMENOVAT DURATION NA TIME
+  duration = pulseIn(echoPin, HIGH); // pulseIn zmeri cas v mikrosedundach jak dlouho zvukova vlna letela 
   vz = duration * 0.034 / 2; // vz = vzdálenost | s = t * v | s = duration * 0.043cm/µs |
   Serial.println("stred 1: ");
   Serial.println(vz);
@@ -130,7 +128,7 @@ void sensorsRead(){ // nesmi to bejt void OPRAVIT na argumenty funkce
   /*digitalWrite(trigPinZ, LOW);
   delayMicroseconds(2);
   
-  digitalWrite(trigPinZ, HIGH);
+  digitalWrite(trigPinZ, HIGH); // zatim nemazat
   delayMicroseconds(10);
   digitalWrite(trigPinZ, LOW);
   durationZ = pulseIn(echoPinZ, HIGH);
@@ -139,8 +137,10 @@ void sensorsRead(){ // nesmi to bejt void OPRAVIT na argumenty funkce
   Serial.println(vzZ);*/
   
  }
-
-  void backSensor(){ // ne na void
+  //zmeri vzdalenost v cm na zadnim senzoru
+  //tahle funkce je oddelena od sensorsRead protoze
+  //nechci merit vzdalenost za autem kdyz jedu dopredu
+  void backSensor(){ // ne na void?
   //back sensor 
   
   digitalWrite(trigPinZ, LOW);
@@ -181,7 +181,7 @@ void sensorsRead(){ // nesmi to bejt void OPRAVIT na argumenty funkce
     digitalWrite(RELE_PIN_2, LOW); //} 0 0
   }
 
-  void otocka() { // to je mrdka to radsi ani nikdo nectete ani to zatim nefunguje
+  void otocka() { // to radsi ani nikdo nectete ani to zatim nefunguje
     int leftcount = 0;
     pause();
     //delay(2000) //!!??? je horni hranice aby nerozhodila senzory?
@@ -214,6 +214,6 @@ void sensorsRead(){ // nesmi to bejt void OPRAVIT na argumenty funkce
 
   void fullleft() {
     motor.run(BACKWARD); 
-    delay(50); //mozna vic mozna min
+    delay(50); //mozna vic mozna min mozna pouzit milis misto delay
     motor.run(RELEASE);
   }
